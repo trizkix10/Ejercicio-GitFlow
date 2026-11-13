@@ -193,7 +193,7 @@ Por ejemplo, agrega una breve descripción del sistema en la siguiente sección:
 
 Escribe aquí una descripción breve del sistema:
 
-> Respuesta del estudiante: ...
+> Respuesta del estudiante: Sistema en Node.js que calcula el precio final de un producto según el tipo de cliente. Los clientes de tipo "estudiante" reciben un 15% de descuento; el resto paga el precio normal.
 
 Luego realice un commit:
 
@@ -274,43 +274,43 @@ Responda las siguientes preguntas directamente en este archivo `README.md`.
 
 ### 1. ¿Cuál es la diferencia entre `main` y `develop` en Git-flow?
 
-Respuesta:
+Respuesta: `main` contiene solo código estable y publicado (producción); cada commit en main corresponde a una versión etiquetada. `develop` es la rama de integración donde se juntan las features terminadas que aún no se publican. Así se separa lo que está en producción de lo que está en desarrollo.
 
 ---
 
 ### 2. ¿Por qué la funcionalidad se desarrolló en una rama `feature` y no directamente en `main`?
 
-Respuesta:
+Respuesta: Para aislar el trabajo en curso: si la funcionalidad queda incompleta o tiene errores, no rompe `main` (producción) ni afecta a otros desarrolladores. Además permite revisarla y probarla antes de integrarla, y descartarla sin impacto si es necesario.
 
 ---
 
 ### 3. ¿Qué hace el comando `git merge --no-ff`?
 
-Respuesta:
+Respuesta: Obliga a crear un commit de merge aunque Git pudiera hacer fast-forward. Ese commit deja registrado en el historial que la funcionalidad se desarrolló en una rama separada y agrupa todos sus commits.
 
 ---
 
 ### 4. ¿Qué diferencia habría si Git hiciera un merge con fast-forward?
 
-Respuesta:
+Respuesta: Con fast-forward Git solo movería el puntero de `develop` al último commit de la feature, dejando un historial lineal. Se perdería la evidencia de que existió la rama y sería más difícil revertir la funcionalidad completa, porque no habría un único commit de merge que revertir.
 
 ---
 
 ### 5. Después del merge, ¿los commits hechos en `feature/descuento-estudiante` quedan en el historial de `develop`?
 
-Respuesta:
+Respuesta: Sí. El merge no elimina commits: quedan alcanzables desde `develop`. `git branch -d` solo borra el puntero (nombre) de la rama, no sus commits, que siguen visibles en `git log --graph`.
 
 ---
 
 ### 6. ¿Qué rol cumple una rama `release`?
 
-Respuesta:
+Respuesta: Preparar una versión para publicarla: se congelan las nuevas funcionalidades y solo se hacen ajustes menores (documentación, corrección de bugs, número de versión), mientras `develop` sigue recibiendo features. Luego se integra en `main` con un tag y se devuelve a `develop` para no perder las correcciones.
 
 ---
 
 ### 7. ¿Es posible usar Integración Continua con Git-flow? Justifica brevemente.
 
-Respuesta:
+Respuesta: Sí. Se configura un pipeline (por ejemplo GitHub Actions) que ejecute `npm test` en cada push o pull request hacia `develop`, `release/*` y `main`, bloqueando el merge si las pruebas fallan. El único matiz es que las ramas feature deben ser cortas para integrar frecuentemente, que es la idea central de CI.
 
 ---
 
